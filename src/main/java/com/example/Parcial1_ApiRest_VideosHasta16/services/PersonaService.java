@@ -2,10 +2,11 @@ package com.example.Parcial1_ApiRest_VideosHasta16.services;
 
 import com.example.Parcial1_ApiRest_VideosHasta16.entities.Persona;
 import com.example.Parcial1_ApiRest_VideosHasta16.repositories.PersonaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 public class PersonaService implements BaseService<Persona>{
 
@@ -22,42 +23,78 @@ public class PersonaService implements BaseService<Persona>{
 
 
     @Override
+    @Transactional
     public List<Persona> findAll() throws Exception {
-        return null;
+        try {
+            List<Persona> entities = personaRepository.findAll();//obtiene de la BD todas las personas registradas
+            return entities;
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
     }
 
     @Override
     @Transactional
     public Persona findById(Long id) throws Exception {
-        return null;
+        try {
+            Optional<Persona> entityOpcional = personaRepository.findById(id);
+            return entityOpcional.get();//este metodo va a obtener una entidad si es que la encuentra
+
+        }catch (Exception e){   //de otra forma lanza una excepcion
+            throw new Exception(e.getMessage());
+        }
     }
 
     @Override
     @Transactional
     public Persona save(Persona entity) throws Exception {
-        return null;
+        try {
+            entity = personaRepository.save(entity);
+            return entity;
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
     }
 
     @Override
     @Transactional
     public Persona update(Long id, Persona entity) throws Exception {
-        return null;
+        try {
+            Optional<Persona> entityOptional = personaRepository.findById(id);
+            Persona persona = entityOptional.get();
+            persona = personaRepository.save(persona);
+            return persona;
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+
+        }
     }
 
     @Override
     @Transactional
     public boolean delete(Long id) throws Exception {
-        return false;
+        try {
+            if (personaRepository.existsById(id)){
+                personaRepository.deleteById(id);
+                return true;
+            }else{
+                throw new Exception();
+            }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+
+        }
     }
 }
 
 
-/*
-* 1)
-* @Transactional: Me va a permitir que van hacer transacciones con la BD (en casos anteriores usabamos entity manager en la persistencia
-*               con Transaccional Beggin ()
-*                                   Commit()
-*            en las excepciones un    Rollback()
-*
-* 2)Bloque try Catch
-* */
+
+
+/**
+ * Completando los metodos del servicio
+ * */
+
+

@@ -2,6 +2,7 @@ package com.example.Parcial1_ApiRest_VideosHasta16.controllers;
 
 import com.example.Parcial1_ApiRest_VideosHasta16.entities.Persona;
 import com.example.Parcial1_ApiRest_VideosHasta16.services.PersonaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +16,11 @@ import java.util.Map;
 // Permite el acceso desde distintos orígenes o clientes a los datos de la API
 @RequestMapping("api/v1/personas")              // URI base para acceder a los recursos de Persona
 public class PersonaController {
-
+    //@Autowired
     private PersonaService personaService;       // Inyección de dependencia para el servicio de Persona
 
     // Constructor para inyectar PersonaService, reemplazando la anotación @Autowired
-    public PersonaController(PersonaService personaService) {
+    public PersonaController (PersonaService personaService) {
         this.personaService = personaService;
     }
 

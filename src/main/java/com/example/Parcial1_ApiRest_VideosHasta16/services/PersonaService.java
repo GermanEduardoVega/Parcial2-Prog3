@@ -4,10 +4,11 @@ import com.example.Parcial1_ApiRest_VideosHasta16.entities.Persona;
 import com.example.Parcial1_ApiRest_VideosHasta16.repositories.PersonaRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class PersonaService implements BaseService<Persona>{
 
     //@Autowired
@@ -64,7 +65,7 @@ public class PersonaService implements BaseService<Persona>{
         try {
             Optional<Persona> entityOptional = personaRepository.findById(id);
             Persona persona = entityOptional.get();
-            persona = personaRepository.save(persona);
+            persona = personaRepository.save(entity);
             return persona;
 
         }catch (Exception e){
